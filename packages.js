@@ -36,9 +36,6 @@
             Also complicating matters is that fedex and usps use the same check digit scheme.
 */
 
-// Namespace Declaration
-TrackPkg = {}
-
 // Trim Function We Need
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -47,7 +44,7 @@ if(typeof String.prototype.trim !== 'function') {
 }
 
 // Function Namespace
-(function () {
+var writeModule = function () {
     /*
     Validates a UPS tracking number
     return true if valid
@@ -218,4 +215,16 @@ if(typeof String.prototype.trim !== 'function') {
             return "http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?strOrigTrackNum=" + number;
         return undefined;
     }
-}).call(TrackPkg);
+
+    return this;
+};
+
+if (typeof define === 'function' && typeof define.amd == 'object' && define.amd) {
+  var trackPkg = {};
+  define(function() { return writeModule.call(trackPkg); }); // RequireJS
+} else {
+  // Namespace Declaration
+  TrackPkg = {};
+
+  writeModule.call(TrackPkg); // CommonJS and <script>
+}
