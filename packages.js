@@ -127,7 +127,7 @@ var writeModule = function () {
     function _validFedexGround(number) {
         // check the length (we only need 15 digits, the rest depend on the barcode type etc.)
         number = number.trim();
-        valid_prefixes = ["96","00"]                                                    // valid prefixes for fedex ground (I'm a little unsure if 00 is necessary but it may be the code-128 barcodes start with 00 even they though encode a 96 barcode?)
+        valid_prefixes = ["96","95", "00"]                                                    // valid prefixes for fedex ground (I'm a little unsure if 00 is necessary but it may be the code-128 barcodes start with 00 even they though encode a 96 barcode?)
         if (number.length < 15 || valid_prefixes.indexOf(number.substr(0,2)) === -1)    // 96 is the fedex ground application identifier
             return false;
         number = number.substr(number.length-15,15);         // the check digit is the most right information so we must handle that
