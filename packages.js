@@ -205,13 +205,13 @@ var writeModule = function () {
         Returns the tracking URL if the tracking number
         is valid.  If it isn't will return undefined
     */
-    this.GetTrackingURL = function(number) {
+    this.GetTrackingURL = function(number, forceCarrier) {
         var track = this.IsTrackingNumber(number);
-        if (track == "ups")
+        if (track == "ups" || forceCarrier == "ups")
             return "http://wwwapps.ups.com/tracking/tracking.cgi?tracknum=" + number;
-        else if (track == "fedex")
+        else if (track == "fedex" || forceCarrier == "fedex")
             return "http://www.fedex.com/Tracking?tracknumbers=" + number;
-        else if (track == "usps")
+        else if (track == "usps" || forceCarrier == "usps")
             return "http://trkcnfrm1.smi.usps.com/PTSInternetWeb/InterLabelInquiry.do?strOrigTrackNum=" + number;
         return undefined;
     }
